@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="<{$xoops_langcode}>" lang="<{$xoops_langcode}>">
+<head>
+	<!-- do not remove
+    framework by bleekk
+    www.bleekk.com
+    -->
+    
+    <!-- for ie8 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    
+	<!-- Theme name -->
+	<{assign var=theme_name value=$xoTheme->folderName}>
+    
+    <!-- Directory html files -->
+	<{assign var=theme_name value=$xoTheme->folderName|cat:'/xotpl'}>
+    
+    <!-- Titel und meta -->
+    <meta http-equiv="Content-Type" content="text/html; <{$xoops_charset}>"/>
+    <title><{if $xoops_pagetitle !=''}><{$xoops_pagetitle}> : <{/if}><{$xoops_sitename}></title>
+	<meta name="robots" content="<{$xoops_meta_robots}>" />
+	<meta name="keywords" content="<{$xoops_meta_keywords}>" />
+	<meta name="description" content="<{$xoops_meta_description}>" />
+	<meta name="rating" content="<{$xoops_meta_rating}>" />
+	<meta name="author" content="<{$xoops_meta_author}>" />
+	<meta name="copyright" content="<{$xoops_meta_copyright}>" />
+	<meta name="generator" content="" />
+    
+    <!-- Favicon -->
+	<link rel="shortcut icon" type="image/ico" href="<{xoImgUrl icons/favicon.ico}>" />
+	<link rel="icon" type="image/png" href="<{xoImgUrl icons/icon.png}>" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="<{xoAppUrl xoops.css}>" />
+	<link rel="stylesheet" type="text/css" media="all" href="<{xoImgUrl style.css}>" />
+    
+    <!-- Module Header -->
+    <{$xoops_module_header}>
+</head>
+
+<body>
+<!-- wir überprüfen wieviele Spalten angezeigt werden damit wir die mittlere Spalte und den Center-Center Block in der Breite ändern können.
+Wenn zB nur die linke und mittlere Spalte angezeigt wird muss die mittlere Spalte breiter sein als bei allen 3 Spalten
+ -->
+<{if $xoBlocks.canvas_left and $xoBlocks.canvas_right}>
+<{assign var=columns_layout value='dreispalten-layout'}>
+<{assign var=cblockWidth value='cBlocks-drei'}>
+<{elseif $xoBlocks.canvas_left}>
+<{assign var=columns_layout value='zweispalten-layout'}>
+<{assign var=cblockWidth value='cBlocks-zwei'}>
+<{elseif $xoBlocks.canvas_right}>
+<{assign var=columns_layout value='zweispalten-layout'}>
+<{assign var=cblockWidth value='cBlocks-zwei'}>
+<{else}>
+<{assign var=columns_layout value='einespalte-layour'}>
+<{assign var=cblockWidth value='cBlocks-eins'}>
+<{/if}>
+
+<!-- header blocks -->
+<{if $xoBlocks.hblockleft and $xoBlocks.hblockcenter and $xoBlocks.hblockright}>
+<{assign var=hblock_columns value='hblock-drei'}>
+<{elseif $xoBlocks.hblockleft and !$xoBlocks.hblockcenter and $xoBlocks.hblockright}>
+<{assign var=hblock_columns value='hblock-zwei'}>
+<{elseif $xoBlocks.hblockleft and $xoBlocks.hblockcenter and !$xoBlocks.hblockright}>
+<{assign var=hblock_columns value='hblock-zwei'}>
+<{elseif !$xoBlocks.hblockleft and $xoBlocks.hblockcenter and $xoBlocks.hblockright}>
+<{assign var=hblock_columns value='hblock-zwei'}>
+<{else}>
+<{assign var=hblock_columns value='hblock-eins'}>
+<{/if}>
+
+<!-- footer blocks -->
+<{if $xoBlocks.fblockleft and $xoBlocks.fblockcenter and $xoBlocks.fblockright}>
+<{assign var=fblock_columns value='fblock-drei'}>
+<{elseif $xoBlocks.fblockleft and !$xoBlocks.fblockcenter and $xoBlocks.fblockright}>
+<{assign var=fblock_columns value='fblock-zwei'}>
+<{elseif $xoBlocks.fblockleft and $xoBlocks.fblockcenter and !$xoBlocks.fblockright}>
+<{assign var=fblock_columns value='fblock-zwei'}>
+<{elseif !$xoBlocks.fblockleft and $xoBlocks.fblockcenter and $xoBlocks.fblockright}>
+<{assign var=fblock_columns value='fblock-zwei'}>
+<{else}>
+<{assign var=fblock_columns value='fblock-eins'}>
+<{/if}>
+
+    
+<!-- Header -->    
+<div class="row">
+	<div class="header">
+    	<a href="<{xoAppUrl}>"><{$xoops_sitename}></a>
+		<span><{$xoops_slogan}></span>
+    </div>
+</div>
+<div class="clear"></div>
+<!-- Topmenü -->
+<div class="row">
+	<div class="topmenu">
+    	<ul>
+          <li><a href="<{xoAppUrl}>">Home</a></li>
+          <li><a href="#">Link1</a></li>
+          <li><a href="#">Link2</a></li>
+          <li><a href="#">Link3</a></li>
+          <li><a href="#">Link4</a></li>
+          <li><a href="#">Link5</a></li>
+      	</ul>
+    </div>
+</div>
+<!-- ENDE Topmenü -->
+<div class="clear"></div>
+
+<div class="row header-blocks">
+<!-- New 3 block positions -->
+    <{if $xoBlocks.hblockleft}>
+      <div class="header-left <{if $columns_layout}><{$hblock_columns}><{/if}>">
+         <{foreach from=$xoBlocks.hblockleft item=block}>
+           <div>	
+            <{if $block.title}>
+              <div class="right-block-title">
+                 <{$block.title}>
+              </div>
+            <{/if}>
+            <div class="block-content"><{$block.content}></div>
+           </div>
+         <{/foreach}>
+      </div>
+      <{/if}>
+      
+      
+      <{if $xoBlocks.hblockcenter}>
+      <div class="header-center <{if $columns_layout}><{$hblock_columns}><{/if}>">
+         <{foreach from=$xoBlocks.hblockcenter item=block}>
+            <div>	
+            <{if $block.title}>
+              <div class="right-block-title">
+                 <{$block.title}>
+              </div>
+            <{/if}>
+            <div class="block-content"><{$block.content}></div>
+           </div>
+         <{/foreach}>
+      </div>
+      <{/if}>
+      
+      <{if $xoBlocks.hblockright}>
+      <div class="header-right <{if $columns_layout}><{$hblock_columns}><{/if}>">
+         <{foreach from=$xoBlocks.hblockright item=block}>
+           <div>	
+            <{if $block.title}>
+              <div class="right-block-title">
+                 <{$block.title}>
+              </div>
+            <{/if}>
+            <div class="block-content"><{$block.content}></div>
+           </div>
+         <{/foreach}>
+      </div>
+    <{/if}>
+</div>
+<div style="clear:both"></div>
+
+<!-- main content -->
+<div class="row main">
+	<!-- Linke Spalte / Blöcke -->
+    <{if $xoBlocks.canvas_left}>
+      <div class="leftcolumn">
+          <{foreach item=block from=$xoBlocks.canvas_left}>
+              <{include file="$theme_name/theme_blockleft.html"}>
+          <{/foreach}>
+      </div>
+    <{/if}>
+    <!-- ENDE linker Spalte / linke Blöcke -->
+    <!-- Mittlere Spalte -->
+	<div class="centercolumn <{if $columns_layout}><{$columns_layout}><{/if}>">
+       <!-- Center TOP Blöcke -->
+    	<{if $xoBlocks.page_topleft or $xoBlocks.page_topcenter or $xoBlocks.page_topright}>
+          <div class="centerblock-center <{if $columns_layout}><{$columns_layout}><{/if}>">
+              <{foreach item=block from=$xoBlocks.page_topcenter}>
+                  <{includeq file="$theme_name/theme_blockcenter_c.html"}>
+              <{/foreach}>
+          </div>
+          <div class="centerblock-left <{if $cblockWidth}><{$cblockWidth}><{/if}>">
+              <{foreach item=block from=$xoBlocks.page_topleft}>
+                  <{includeq file="$theme_name/theme_blockcenter_l.html"}>
+              <{/foreach}>
+          </div>
+          <div class="centerblock-right <{if $cblockWidth}><{$cblockWidth}><{/if}>">
+              <{foreach item=block from=$xoBlocks.page_topright}>
+                  <{include file="$theme_name/theme_blockcenter_r.html"}>
+              <{/foreach}>
+          </div>
+          <div class="clear"></div>
+        <{/if}>
+        <!-- ENDE Center TOP Blöcle -->
+        <{if $xoops_contents}>
+          <div class="page-content <{if $columns_layout}><{$columns_layout}><{/if}>">
+              <{$xoops_contents}>
+          </div>
+          <div class="clear"></div>
+        <{/if}>
+        <!-- Center BOTTOM Blöcke -->
+        <{if $xoBlocks.page_bottomleft or $xoBlocks.page_bottomright or $xoBlocks.page_bottomcenter}>
+        <div class="centerblock-left <{if $cblockWidth}><{$cblockWidth}><{/if}>">
+        	<{foreach item=block from=$xoBlocks.page_bottomleft}>
+				<{include file="$theme_name/theme_blockcenter_l.html"}>
+			<{/foreach}>
+        </div>
+    	<div class="centerblock-right <{if $cblockWidth}><{$cblockWidth}><{/if}>">
+        	<{foreach item=block from=$xoBlocks.page_bottomright}>
+				<{include file="$theme_name/theme_blockcenter_r.html"}>
+			<{/foreach}>
+        </div>
+        <div class="clear"></div>
+		<div class="centerblock-center <{if $columns_layout}><{$columns_layout}><{/if}>">
+        	<{foreach item=block from=$xoBlocks.page_bottomcenter}>
+				<{include file="$theme_name/theme_blockcenter_c.html"}>
+            <{/foreach}>
+        </div>
+        <{/if}>
+        <!-- ENDE Center BOTTOM Blöcke -->
+    </div>
+    <!-- ENDE mittlere Spalte -->
+    
+    <!-- Rechte Spalte / Blöcke -->
+    <{if $xoBlocks.canvas_right}>
+	<div class="rightcolumn">
+    	<{foreach item=block from=$xoBlocks.canvas_right}>
+        	<{include file="$theme_name/theme_blockright.html"}>
+        <{/foreach}>
+    </div>
+    <{/if}>
+    <!-- ENDE rechte Spalte / Block -->
+    <div class="clear"></div>
+</div>
+
+<!-- Footer -->
+<div class="row">
+	<div class="footer-top"></div>
+	<div class="footer">
+    	<div class="footer-blocks">
+    	<!-- New 3 block positions -->
+            <{if $xoBlocks.fblockleft}>
+              <div class="footer-left <{if $fblock_columns}><{$fblock_columns}><{/if}>">
+                 <{foreach from=$xoBlocks.fblockleft item=block}>
+                   <div>	
+                    <{if $block.title}>
+                      <div class="right-block-title">
+                         <{$block.title}>
+                      </div>
+                    <{/if}>
+                    <div class="block-content"><{$block.content}></div>
+                   </div>
+                 <{/foreach}>
+              </div>
+              <{/if}>
+              
+              
+              <{if $xoBlocks.fblockcenter}>
+              <div class="footer-center <{if $fblock_columns}><{$fblock_columns}><{/if}>">
+                 <{foreach from=$xoBlocks.fblockcenter item=block}>
+                    <div>	
+                    <{if $block.title}>
+                      <div class="right-block-title">
+                         <{$block.title}>
+                      </div>
+                    <{/if}>
+                    <div class="block-content"><{$block.content}></div>
+                   </div>
+                 <{/foreach}>
+              </div>
+              <{/if}>
+              
+              <{if $xoBlocks.fblockright}>
+              <div class="footer-right <{if $fblock_columns}><{$fblock_columns}><{/if}>">
+                 <{foreach from=$xoBlocks.fblockright item=block}>
+                   <div>	
+                    <{if $block.title}>
+                      <div class="right-block-title">
+                         <{$block.title}>
+                      </div>
+                    <{/if}>
+                    <div class="block-content"><{$block.content}></div>
+                   </div>
+                 <{/foreach}>
+              </div>
+            <{/if}>
+         </div>
+        <div style="clear:both"></div>
+        <div class="footer-credit">Design by <a href="http://www.bleekk.com" title="bleekk.com">bleekk.com</a> | <{$xoops_footer}></div>
+    </div>
+    <div class="footer-bot"></div>
+</div>
+
+
+</body>
+</html>
